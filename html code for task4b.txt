@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+   <html lang="en">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern Highlighter</title>
+    <style>
+        .highlighted {
+            background-color: yellow;
+        }
+
+        /* Add some styling for the email validation section */
+        #emailValidationForm {
+            margin-top: 30px;
+        }
+
+        #emailValidationForm label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #emailValidationForm input {
+            width: 60%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Find your pattern</h1>
+    <form id="highlightForm">
+        <label for="text">Enter Text:</label>
+        <div contenteditable="true" id="text" style="border: 1px solid black; padding: 5px;"></div>
+        <br>
+        <label for="pattern">Enter Pattern:</label>
+        <input type="text" name="pattern" id="pattern">
+        <br>
+        <button type="button" onclick="highlightPattern()">Find Pattern</button>
+    </form>
+
+    <!-- Add a new section for email validation -->
+    <div id="emailValidationForm">
+        <h2>Email Validation</h2>
+        <form id="validateEmailForm" onsubmit="return validateEmail()">
+            <label for="email">Enter Email:</label>
+            <input type="text" name="email" id="email">
+            <br>
+            <button type="submit">Validate Email</button>
+        </form>
+        <div id="emailValidationResult"></div>
+    </div>
+
+    <script>
+        function highlightPattern() {
+            var textDiv = document.getElementById("text");
+            var patternInput = document.getElementById("pattern");
+
+            var text = textDiv.textContent;
+            var pattern = patternInput.value;
+
+            var regex = new RegExp(pattern, "g");
+            var highlighted = text.replace(regex, function (match) {
+                return '<span class="highlighted">' + match + '</span>';
+            });
+
+            textDiv.innerHTML = highlighted;
+        }
+
+        function validateEmail() {
+            var emailInput = document.getElementById("email");
+            var validationResultDiv = document.getElementById("emailValidationResult");
+
+            var email = emailInput.value;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailRegex.test(email)) {
+                validationResultDiv.innerHTML = "Email is valid!";
+            } else {
+                validationResultDiv.innerHTML = "Email is not valid!";
+            }
+
+            return false; // Prevent form submission for demonstration purposes
+        }
+    </script>
+</body>
+
+</html>
+   </head>
+   <body>
+    
+   </body>
+   </html>

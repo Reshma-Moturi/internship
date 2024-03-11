@@ -1,0 +1,84 @@
+
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Highlighter and Email Validator</title>
+    <style>
+        .input-container {
+            width: 600px;
+            margin-bottom: 40px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        #result {
+            white-space: pre-line;
+        }
+    </style>
+</head>
+<body>
+     <h2>Regex pattern Identifier</h2>
+    <div class="input-container">
+        <label for="inputPattern">Regex Pattern:</label>
+        <input type="text" id="inputPattern" placeholder="Enter regex pattern">
+    </div>
+
+    <div class="input-container">
+        <label for="inputText">Test String:</label>
+        <textarea id="inputText" rows="5" placeholder="Enter your data/text"></textarea>
+    </div>
+
+    <button onclick="highlightMatches()">Match pattern</button>
+
+    <div id="result"></div>
+
+</br>
+<h2>Email validation</h2>
+
+    <div class="input-container">
+        <label for="inputEmail">Email Address:</label>
+        <input type="text" id="inputEmail" placeholder="Enter email address">
+    </div>
+
+    <button onclick="validateEmail()">Validate Email</button>
+
+    <div id="emailResult"></div>
+
+    <script>
+        function highlightMatches() {
+            var patternInput = document.getElementById('inputPattern').value;
+            var textInput = document.getElementById('inputText').value;
+            var regex = new RegExp(patternInput, 'gm');
+            var resultElement = document.getElementById('result');
+
+            var highlightedText = textInput.replace(regex, function(match) {
+                return '<span style="background-color: yellow;">' + match + '</span>';
+            });
+
+            resultElement.innerHTML = highlightedText;
+        }
+
+        function validateEmail() {
+            var emailInput = document.getElementById('inputEmail').value;
+            var emailResultElement = document.getElementById('emailResult');
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailRegex.test(emailInput)) {
+                emailResultElement.innerHTML = 'Email is valid!';
+            } else {
+                emailResultElement.innerHTML = 'Invalid email format!';
+            }
+        }
+    </script>
+
+</body>
+</html>

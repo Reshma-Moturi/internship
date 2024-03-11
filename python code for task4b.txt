@@ -1,0 +1,19 @@
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/highlight', methods=['POST'])
+def highlight():
+    text = request.form['text']
+    pattern = request.form['pattern']
+
+    # Perform pattern highlighting logic
+    highlighted_text = text.replace(pattern, f'<span class="highlighted">{pattern}</span>')
+
+    return render_template('index.html', highlighted_text=highlighted_text, pattern=pattern)
+
+if __name__ == '__main__':
